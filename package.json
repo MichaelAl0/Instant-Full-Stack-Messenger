@@ -7,11 +7,12 @@
   "workspaces": [
     "packages/*"
   ],
+  
   "scripts": {
-    "dev:server": "yarn workspace @messenger-app-clone/server dev",
-    "dev:client": "yarn workspace @messenger-app-clone/client dev",
-    "build:client": "yarn workspace @messenger-app-clone/client build",
-    "start": "yarn workspace @messenger-app-clone/server start"
+    "dev:server": "yarn workspace @instant-full-stack-messenger/server dev",
+    "dev:client": "yarn workspace @instant-full-stack-messenger/client dev",
+    "build:client": "yarn workspace @instant-full-stack-messenger/client build",
+    "start": "yarn workspace @instant-full-stack-messenger/server start"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -1,16 +1,4 @@
-
-const Yup = require("yup");
-
-const formSchema = Yup.object({
-  username: Yup.string()
-    .required("Username required")
-    .min(6, "Username too short")
-    .max(28, "Username too long!"),
-  password: Yup.string()
-    .required("Password required")
-    .min(6, "Password too short")
-    .max(28, "Password too long!"),
-});
+const {formSchema} = require("@instant-full-stack-messenger/common")
 
 const validateForm = (req, res) => {
   const formData = req.body;
@@ -25,7 +13,6 @@ const validateForm = (req, res) => {
         console.log("form is good");
       }
     });
+};
 
-} 
-
- module.exports = validateForm
+module.exports = validateForm;
