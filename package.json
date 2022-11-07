@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "private":"true",
-  "workspaces":[
+  "private": "true",
+  "workspaces": [
     "packages/*"
   ],
   "scripts": {
@@ -12,5 +12,9 @@
     "dev:client": "yarn workspace @messenger-app-clone/client dev",
     "build:client": "yarn workspace @messenger-app-clone/client build",
     "start": "yarn workspace @messenger-app-clone/server start"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "yup": "^0.32.11"
   }
 }
