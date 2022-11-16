@@ -1,4 +1,4 @@
-const {formSchema} = require("@instant-full-stack-messenger/common")
+const { formSchema } = require("@instant-full-stack-messenger/common");
 
 const validateForm = (req, res) => {
   const formData = req.body;
@@ -8,6 +8,7 @@ const validateForm = (req, res) => {
       res.status(422).send();
       console.log(err.errors);
     })
+
     .then((valid) => {
       if (valid) {
         console.log("form is good");
