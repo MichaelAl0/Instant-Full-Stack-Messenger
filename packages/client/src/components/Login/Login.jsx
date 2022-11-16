@@ -1,18 +1,20 @@
-import { Button, ButtonGroup, Heading, VStack } from "@chakra-ui/react";
+import { Button, ButtonGroup, Heading, VStack, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import TextField from "./TextField";
 import { formSchema } from "@instant-full-stack-messenger/common";
+import { useContext, useState } from "react";
+import { AccountContext } from "../AccountContext";
 
 const Login = () => {
+  const { setUser } = useContext(AccountContext);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   return (
     <Formik
       initialValues={{ username: "", password: "" }}
-      validationSchema = {formSchema}
+      validationSchema={formSchema}
       onSubmit={(values, actions) => {
-        alert(JSON.stringify(values, null, 2));
-        actions.resetForm();
         const vals = { ...values };
         actions.resetForm();
         fetch("http://localhost:4000/auth/login", {
@@ -34,7 +36,12 @@ const Login = () => {
           })
           .then((data) => {
             if (!data) return;
-            console.log(data);
+            setUser({ ...data });
+            if (data.status) {
+              setError(data.status);
+            } else if (data.loggedIn) {
+              navigate("/home");
+            }
           });
       }}
     >
@@ -47,6 +54,9 @@ const Login = () => {
         spacing="1rem"
       >
         <Heading>Log In</Heading>
+        <Text as="p" color="red.500">
+          {error}
+        </Text>
         <TextField
           name="username"
           placeholder="Enter username"
@@ -59,6 +69,7 @@ const Login = () => {
           placeholder="Enter password"
           autoComplete="off"
           label="Password"
+          type="password"
         />
 
         <ButtonGroup pt="1rem">
