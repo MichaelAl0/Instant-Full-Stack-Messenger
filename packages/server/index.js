@@ -5,19 +5,18 @@ const helmet = require("helmet");
 const cors = require("cors");
 const authRouter = require("./routers/authRouter");
 const session = require("express-session");
-const server = require("http").createServer(app);
-require("dotenv").config();
 const Redis = require("ioredis");
+const server = require("http").createServer(app);
 const RedisStore = require("connect-redis")(session);
-
+require("dotenv").config();
 const io = new Server(server, {
   cors: {
-    origin: "http//localhost:3000",
+    origin: "http://localhost:3000",
     credentials: "true",
   },
 });
-
 const redisClient = new Redis();
+
 app.use(helmet());
 app.use(
   cors({
@@ -42,11 +41,10 @@ app.use(
     },
   })
 );
-
 app.use("/auth", authRouter);
 
 io.on("connect", (socket) => {});
 
 server.listen(4000, () => {
-  console.log("Server listening to port 4000");
+  console.log("Server listening on port 4000");
 });

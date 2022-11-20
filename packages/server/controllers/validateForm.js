@@ -1,17 +1,19 @@
 const { formSchema } = require("@instant-full-stack-messenger/common");
 
-const validateForm = (req, res) => {
+const validateForm = (req, res, next) => {
   const formData = req.body;
   formSchema
     .validate(formData)
-    .catch((err) => {
+    .catch(() => {
       res.status(422).send();
-      console.log(err.errors);
     })
 
     .then((valid) => {
       if (valid) {
         console.log("form is good");
+        next();
+      } else {
+        res.status(422).send();
       }
     });
 };
