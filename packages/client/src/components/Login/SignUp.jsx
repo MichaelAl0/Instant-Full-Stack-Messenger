@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Heading, VStack, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useNavigate } from "react-router";
 import { formSchema } from "@instant-full-stack-messenger/common";
-import TextField from "./TextField";
+import TextField from "../TextField";
 import { useContext, useState } from "react";
 import { AccountContext } from "../AccountContext";
 
