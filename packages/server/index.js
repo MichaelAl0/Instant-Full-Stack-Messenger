@@ -1,19 +1,22 @@
 const express = require("express");
+const {
+  sessionMiddleware,
+  wrap,
+  corsConfig,
+} = require("./controllers/serverController");
 const { Server } = require("socket.io");
 const app = express();
 const helmet = require("helmet");
 const cors = require("cors");
 const authRouter = require("./routers/authRouter");
 const {
-  sessionMiddleware,
-  wrap,
-  corsConfig,
-} = require("./controllers/serverController");
-const { authorizeUser } = require("./controllers/socketController");
-
+  authorizeUser,
+  initializeUser,
+  addFriend,
+} = require("./controllers/socketController");
+const redisClient = require("./redis");
 const server = require("http").createServer(app);
 
-require("dotenv").config();
 const io = new Server(server, {
   cors: corsConfig,
 });
@@ -27,8 +30,11 @@ app.use("/auth", authRouter);
 io.use(wrap(sessionMiddleware));
 io.use(authorizeUser);
 io.on("connect", (socket) => {
-  console.log("USERID:", socket.user.userid);
-  console.log(socket.request.session.user.username);
+  initializeUser(socket);
+
+  socket.on("add_friend", (friendName, cb) => {
+    addFriend(socket, friendName, cb);
+  });
 });
 
 server.listen(4000, () => {
