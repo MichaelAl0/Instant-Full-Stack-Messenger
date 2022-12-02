@@ -17,7 +17,6 @@ import { FriendContext } from "./Home";
 const Sidebar = () => {
   const { friendList, setFriendList } = useContext(FriendContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <VStack py="1.4rem">
@@ -32,9 +31,9 @@ const Sidebar = () => {
           {friendList.map((friend) => (
             <HStack as={Tab}>
               <Circle
-                bg={friend.connected ? "green.600" : "red.500"}
-                w="12px"
-                h="12px"
+                bg={friend.connected ? "green.700" : "red.500"}
+                w="20px"
+                h="20px"
               />
               <Text>{friend.username}</Text>
             </HStack>
