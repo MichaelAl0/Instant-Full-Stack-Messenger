@@ -9,6 +9,7 @@ const {
   wrap,
   corsConfig,
 } = require("./controllers/serverController");
+const { authorizeUser } = require("./controllers/socketController");
 
 const server = require("http").createServer(app);
 
@@ -24,6 +25,7 @@ app.use(sessionMiddleware);
 app.use("/auth", authRouter);
 
 io.use(wrap(sessionMiddleware));
+io.use(authorizeUser);
 io.on("connect", (socket) => {
   console.log(socket.request.session.user.username);
 });
