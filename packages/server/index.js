@@ -10,12 +10,12 @@ const helmet = require("helmet");
 const cors = require("cors");
 const authRouter = require("./routers/authRouter");
 const {
-  authorizeUser,
   initializeUser,
   addFriend,
   onDisconnect,
+  authorizeUser,
+  dm,
 } = require("./controllers/socketController");
-
 const server = require("http").createServer(app);
 
 const io = new Server(server, {
@@ -36,6 +36,8 @@ io.on("connect", (socket) => {
   socket.on("add_friend", (friendName, cb) => {
     addFriend(socket, friendName, cb);
   });
+
+  socket.on("dm", (message) => dm(socket, message));
 
   socket.on("disconnecting", () => onDisconnect(socket));
 });
